@@ -1,5 +1,5 @@
-import { TaskCard } from '../components/tasks/TaskCard';
-import { useTaskStore } from '../store/tasks';
+import { TaskCard } from "../components/tasks/TaskCard";
+import { useTaskStore } from "../store/tasks";
 
 interface CompletedPageProps {
   onTaskClick: (taskId: string) => void;
@@ -7,9 +7,13 @@ interface CompletedPageProps {
   onTaskDelete: (taskId: string) => void;
 }
 
-export function CompletedPage({ onTaskClick, onTaskComplete, onTaskDelete }: CompletedPageProps) {
+export function CompletedPage({
+  onTaskClick,
+  onTaskComplete,
+  onTaskDelete,
+}: CompletedPageProps) {
   const tasks = useTaskStore((state) => state.tasks);
-  const completedTasks = tasks.filter((t) => t.status === 'completed');
+  const completedTasks = tasks.filter((t) => t.status === "completed");
 
   return (
     <div className="space-y-6">
@@ -22,11 +26,7 @@ export function CompletedPage({ onTaskClick, onTaskComplete, onTaskDelete }: Com
 
       {completedTasks.length === 0 ? (
         <div className="bg-white rounded-xl p-12 text-center border border-gray-200">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-3xl">🎉</span>
-          </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">太棒了！</h3>
-          <p className="text-gray-500">还没有完成任何任务，继续加油！</p>
+          <p className="text-gray-500 p-7">暂无数据</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
