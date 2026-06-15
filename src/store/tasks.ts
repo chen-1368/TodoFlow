@@ -84,13 +84,20 @@ const mockTasks: Task[] = [
   },
 ];
 
+// 按创建时间倒序排序（最新的在前）
+const sortTasksByCreatedAtDesc = (tasks: Task[]): Task[] => {
+  return [...tasks].sort((a, b) => {
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+  });
+};
+
 export const useTaskStore = create<TaskStore>((set, get) => ({
-  tasks: mockTasks,
+  tasks: sortTasksByCreatedAtDesc(mockTasks),
   selectedTask: null,
   filters: {},
   isDarkMode: false,
 
-  setTasks: (tasks) => set({ tasks }),
+  setTasks: (tasks) => set({ tasks: sortTasksByCreatedAtDesc(tasks) }),
 
   addTask: (taskData) => {
     const newTask: Task = {
@@ -102,7 +109,9 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
       tags: [],
       comments: [],
     };
-    set((state) => ({ tasks: [...state.tasks, newTask] }));
+    set((state) => ({
+      tasks: sortTasksByCreatedAtDesc([...state.tasks, newTask]),
+    }));
   },
 
   updateTask: (id, updates) => {
