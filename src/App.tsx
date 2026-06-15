@@ -4,7 +4,6 @@ import { Layout } from './components/layout/Layout';
 import { Dashboard } from './pages/Dashboard';
 import { TaskListPage } from './pages/TaskListPage';
 import { CompletedPage } from './pages/CompletedPage';
-import { SettingsPage } from './pages/SettingsPage';
 import { TaskForm } from './components/tasks/TaskForm';
 import { TaskDetail } from './components/tasks/TaskDetail';
 import { useTaskStore } from './store/tasks';
@@ -103,7 +102,6 @@ function AppContent() {
             />
           }
         />
-        <Route path="/settings" element={<SettingsPage />} />
       </Routes>
 
       {selectedTask && (

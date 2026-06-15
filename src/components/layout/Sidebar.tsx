@@ -1,7 +1,6 @@
 import { 
   LayoutDashboard, 
   ListTodo, 
-  Settings, 
   PlusCircle,
   CheckCircle2
 } from 'lucide-react';
@@ -16,7 +15,6 @@ export function Sidebar({ onCreateTask }: SidebarProps) {
     { icon: LayoutDashboard, label: '仪表盘', path: '/' },
     { icon: ListTodo, label: '任务列表', path: '/tasks' },
     { icon: CheckCircle2, label: '已完成', path: '/completed' },
-    { icon: Settings, label: '设置', path: '/settings' },
   ];
 
   return (
@@ -54,18 +52,6 @@ export function Sidebar({ onCreateTask }: SidebarProps) {
           </NavLink>
         ))}
       </nav>
-
-      <div className="p-4 border-t border-gray-200">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-semibold">
-            U
-          </div>
-          <div>
-            <p className="text-sm font-medium text-gray-900">用户</p>
-            <p className="text-xs text-gray-500">user@example.com</p>
-          </div>
-        </div>
-      </div>
     </aside>
   );
 }
