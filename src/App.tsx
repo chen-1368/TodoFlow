@@ -11,12 +11,15 @@ import { TaskListPage } from "./pages/TaskListPage";
 import { CompletedPage } from "./pages/CompletedPage";
 import { TaskForm } from "./components/tasks/TaskForm";
 import { TaskDetail } from "./components/tasks/TaskDetail";
+import { ConfirmModal } from "./components/ui/ConfirmModal";
 import { useTaskStore } from "./store/tasks";
 import type { Task } from "./types";
 
 function AppContent() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState<string | null>(null);
   const location = useLocation();
 
   const pageTitles: Record<string, string> = {
@@ -72,9 +75,15 @@ function AppContent() {
   };
 
   const handleTaskDelete = (taskId: string) => {
-    if (confirm("确定要删除这个任务吗？")) {
-      deleteTask(taskId);
+    setTaskToDelete(taskId);
+    setIsConfirmOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (taskToDelete) {
+      deleteTask(taskToDelete);
     }
+    setTaskToDelete(null);
   };
 
   const handleSearch = (query: string) => {
@@ -143,6 +152,17 @@ function AppContent() {
         }}
         onSubmit={handleSubmitTask}
         task={editingTask}
+      />
+
+      <ConfirmModal
+        isOpen={isConfirmOpen}
+        onClose={() => {
+          setIsConfirmOpen(false);
+          setTaskToDelete(null);
+        }}
+        onConfirm={confirmDelete}
+        title="确认删除"
+        message="确定要删除这个任务吗？删除后无法恢复。"
       />
     </Layout>
   );
