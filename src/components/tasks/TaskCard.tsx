@@ -1,4 +1,4 @@
-import { CheckCircle, Circle, Calendar, Tag } from "lucide-react";
+import { CheckCircle, Circle, Calendar } from "lucide-react";
 import type { Task } from "../../types";
 
 interface TaskCardProps {
@@ -50,14 +50,6 @@ export function TaskCard({
     return date.toLocaleDateString("zh-CN", { month: "short", day: "numeric" });
   };
 
-  const subtaskProgress = task.subtasks?.length
-    ? Math.round(
-        (task.subtasks.filter((s) => s.completed).length /
-          task.subtasks.length) *
-          100,
-      )
-    : 0;
-
   return (
     <div
       onClick={onClick}
@@ -94,17 +86,6 @@ export function TaskCard({
           )}
 
           <div className="flex items-center gap-2 mt-3 flex-wrap">
-            {task.tags?.map((tag) => (
-              <span
-                key={tag.id}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium"
-                style={{ backgroundColor: `${tag.color}20`, color: tag.color }}
-              >
-                <Tag className="w-3 h-3" />
-                {tag.name}
-              </span>
-            ))}
-
             <span
               className={`px-2 py-0.5 rounded-full text-xs font-medium ${priorityStyles[task.priority]}`}
             >
@@ -117,24 +98,6 @@ export function TaskCard({
               {statusLabels[task.status]}
             </span>
           </div>
-
-          {task.subtasks && task.subtasks.length > 0 && (
-            <div className="mt-3">
-              <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
-                <span>子任务</span>
-                <span>
-                  {task.subtasks.filter((s) => s.completed).length}/
-                  {task.subtasks.length}
-                </span>
-              </div>
-              <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-accent-500 rounded-full transition-all duration-300"
-                  style={{ width: `${subtaskProgress}%` }}
-                />
-              </div>
-            </div>
-          )}
 
           {task.due_date && (
             <div className="flex items-center gap-1 mt-3 text-xs text-gray-500">
