@@ -1,4 +1,4 @@
-import { ListTodo, CheckCircle2, Clock, AlertCircle } from "lucide-react";
+import { ListTodo, CheckCircle2, Clock, Play } from "lucide-react";
 import { StatsCard } from "../components/dashboard/StatsCard";
 import { TaskCard } from "../components/tasks/TaskCard";
 import { useTaskStore } from "../store/tasks";
@@ -32,7 +32,7 @@ export function Dashboard({
           title="总任务数"
           value={stats.total}
           icon={<ListTodo className="w-6 h-6" />}
-          color="blue"
+          color="purple"
         />
         <StatsCard
           title="待处理"
@@ -43,8 +43,8 @@ export function Dashboard({
         <StatsCard
           title="进行中"
           value={stats.inProgress}
-          icon={<AlertCircle className="w-6 h-6" />}
-          color="red"
+          icon={<Play className="w-6 h-6" />}
+          color="blue"
         />
         <StatsCard
           title="已完成"
