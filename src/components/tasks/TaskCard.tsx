@@ -1,5 +1,5 @@
-import { CheckCircle, Circle, MoreHorizontal, Calendar, Tag } from 'lucide-react';
-import type { Task } from '../../types';
+import { CheckCircle, Circle, Calendar, Tag } from "lucide-react";
+import type { Task } from "../../types";
 
 interface TaskCardProps {
   task: Task;
@@ -8,29 +8,34 @@ interface TaskCardProps {
   onDelete: () => void;
 }
 
-export function TaskCard({ task, onClick, onComplete, onDelete }: TaskCardProps) {
+export function TaskCard({
+  task,
+  onClick,
+  onComplete,
+  onDelete,
+}: TaskCardProps) {
   const priorityStyles = {
-    high: 'bg-red-100 text-red-600',
-    medium: 'bg-yellow-100 text-yellow-700',
-    low: 'bg-green-100 text-green-700',
+    high: "bg-red-100 text-red-600",
+    medium: "bg-yellow-100 text-yellow-700",
+    low: "bg-green-100 text-green-700",
   };
 
   const statusStyles = {
-    pending: 'bg-gray-100 text-gray-600',
-    'in-progress': 'bg-blue-100 text-blue-600',
-    completed: 'bg-green-100 text-green-600',
+    pending: "bg-gray-100 text-gray-600",
+    "in-progress": "bg-blue-100 text-blue-600",
+    completed: "bg-green-100 text-green-600",
   };
 
   const statusLabels = {
-    pending: '待处理',
-    'in-progress': '进行中',
-    completed: '已完成',
+    pending: "待处理",
+    "in-progress": "进行中",
+    completed: "已完成",
   };
 
   const priorityLabels = {
-    high: '高优先级',
-    medium: '中优先级',
-    low: '低优先级',
+    high: "高优先级",
+    medium: "中优先级",
+    low: "低优先级",
   };
 
   const formatDate = (dateStr?: string) => {
@@ -40,20 +45,24 @@ export function TaskCard({ task, onClick, onComplete, onDelete }: TaskCardProps)
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
 
-    if (date.toDateString() === today.toDateString()) return '今天';
-    if (date.toDateString() === tomorrow.toDateString()) return '明天';
-    return date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
+    if (date.toDateString() === today.toDateString()) return "今天";
+    if (date.toDateString() === tomorrow.toDateString()) return "明天";
+    return date.toLocaleDateString("zh-CN", { month: "short", day: "numeric" });
   };
 
   const subtaskProgress = task.subtasks?.length
-    ? Math.round((task.subtasks.filter((s) => s.completed).length / task.subtasks.length) * 100)
+    ? Math.round(
+        (task.subtasks.filter((s) => s.completed).length /
+          task.subtasks.length) *
+          100,
+      )
     : 0;
 
   return (
     <div
       onClick={onClick}
       className={`bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md transition-all duration-200 cursor-pointer group ${
-        task.status === 'completed' ? 'opacity-60' : ''
+        task.status === "completed" ? "opacity-60" : ""
       }`}
     >
       <div className="flex items-start gap-3">
@@ -64,7 +73,7 @@ export function TaskCard({ task, onClick, onComplete, onDelete }: TaskCardProps)
           }}
           className="mt-0.5 flex-shrink-0"
         >
-          {task.status === 'completed' ? (
+          {task.status === "completed" ? (
             <CheckCircle className="w-6 h-6 text-accent-500" />
           ) : (
             <Circle className="w-6 h-6 text-gray-300 hover:text-accent-500 transition-colors" />
@@ -72,12 +81,16 @@ export function TaskCard({ task, onClick, onComplete, onDelete }: TaskCardProps)
         </button>
 
         <div className="flex-1 min-w-0">
-          <h3 className={`font-medium text-sm ${task.status === 'completed' ? 'line-through text-gray-400' : 'text-gray-900'}`}>
+          <h3
+            className={`font-medium text-sm ${task.status === "completed" ? "line-through text-gray-400" : "text-gray-900"}`}
+          >
             {task.title}
           </h3>
 
           {task.description && (
-            <p className="text-xs text-gray-500 mt-1 line-clamp-2">{task.description}</p>
+            <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+              {task.description}
+            </p>
           )}
 
           <div className="flex items-center gap-2 mt-3 flex-wrap">
@@ -92,11 +105,15 @@ export function TaskCard({ task, onClick, onComplete, onDelete }: TaskCardProps)
               </span>
             ))}
 
-            <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${priorityStyles[task.priority]}`}>
+            <span
+              className={`px-2 py-0.5 rounded-full text-xs font-medium ${priorityStyles[task.priority]}`}
+            >
               {priorityLabels[task.priority]}
             </span>
 
-            <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusStyles[task.status]}`}>
+            <span
+              className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusStyles[task.status]}`}
+            >
               {statusLabels[task.status]}
             </span>
           </div>
@@ -105,7 +122,10 @@ export function TaskCard({ task, onClick, onComplete, onDelete }: TaskCardProps)
             <div className="mt-3">
               <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
                 <span>子任务</span>
-                <span>{task.subtasks.filter((s) => s.completed).length}/{task.subtasks.length}</span>
+                <span>
+                  {task.subtasks.filter((s) => s.completed).length}/
+                  {task.subtasks.length}
+                </span>
               </div>
               <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
                 <div
@@ -124,24 +144,15 @@ export function TaskCard({ task, onClick, onComplete, onDelete }: TaskCardProps)
           )}
         </div>
 
-        <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-          <div className="relative">
-            <button className="p-1 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100">
-              <MoreHorizontal className="w-5 h-5" />
-            </button>
-            <div className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onDelete();
-                }}
-                className="block w-full px-4 py-2 text-left text-sm text-red-500 hover:bg-red-50"
-              >
-                删除任务
-              </button>
-            </div>
-          </div>
-        </div>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete();
+          }}
+          className="flex-shrink-0 px-3 py-1.5 text-sm text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+        >
+          删除
+        </button>
       </div>
     </div>
   );
