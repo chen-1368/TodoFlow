@@ -101,6 +101,7 @@ export function TaskCard({
 
           {task.due_date && (
             <div className="flex items-center gap-1 mt-3 text-xs text-gray-500">
+              截止时间：
               <Calendar className="w-3.5 h-3.5" />
               {formatDate(task.due_date)}
             </div>

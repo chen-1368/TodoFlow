@@ -13,15 +13,6 @@ const mockTasks: Task[] = [
     user_id: 'user-1',
     created_at: '2026-06-10T10:00:00Z',
     updated_at: '2026-06-14T15:30:00Z',
-    subtasks: [
-      { id: 's1', title: '技术架构文档', completed: true, task_id: '1' },
-      { id: 's2', title: 'API文档', completed: false, task_id: '1' },
-      { id: 's3', title: '用户手册', completed: false, task_id: '1' },
-    ],
-    tags: [
-      { id: 't1', name: '文档', color: '#3b82f6', user_id: 'user-1' },
-      { id: 't2', name: '重要', color: '#ef4444', user_id: 'user-1' },
-    ],
   },
   {
     id: '2',
@@ -33,13 +24,6 @@ const mockTasks: Task[] = [
     user_id: 'user-1',
     created_at: '2026-06-12T09:00:00Z',
     updated_at: '2026-06-12T09:00:00Z',
-    subtasks: [
-      { id: 's4', title: '前端代码审查', completed: false, task_id: '2' },
-      { id: 's5', title: '后端代码审查', completed: false, task_id: '2' },
-    ],
-    tags: [
-      { id: 't3', name: '审查', color: '#f59e0b', user_id: 'user-1' },
-    ],
   },
   {
     id: '3',
@@ -51,9 +35,6 @@ const mockTasks: Task[] = [
     user_id: 'user-1',
     created_at: '2026-06-13T14:00:00Z',
     updated_at: '2026-06-13T14:00:00Z',
-    tags: [
-      { id: 't4', name: '会议', color: '#8b5cf6', user_id: 'user-1' },
-    ],
   },
   {
     id: '4',
@@ -65,9 +46,6 @@ const mockTasks: Task[] = [
     user_id: 'user-1',
     created_at: '2026-06-14T08:00:00Z',
     updated_at: '2026-06-15T10:30:00Z',
-    tags: [
-      { id: 't5', name: 'bug', color: '#ef4444', user_id: 'user-1' },
-    ],
   },
   {
     id: '5',
@@ -78,9 +56,6 @@ const mockTasks: Task[] = [
     user_id: 'user-1',
     created_at: '2026-06-15T11:00:00Z',
     updated_at: '2026-06-15T11:00:00Z',
-    tags: [
-      { id: 't6', name: '维护', color: '#10b981', user_id: 'user-1' },
-    ],
   },
 ];
 
@@ -105,8 +80,6 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
       id: `task-${Date.now()}`,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
-      subtasks: [],
-      tags: [],
       comments: [],
     };
     set((state) => ({
@@ -144,17 +117,12 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
 
   toggleDarkMode: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
 
-  toggleSubtask: (taskId, subtaskId) => {
+  toggleSubtask: (taskId) => {
     set((state) => ({
       tasks: state.tasks.map((task) =>
         task.id === taskId
           ? {
-              ...task,
-              subtasks: task.subtasks?.map((subtask) =>
-                subtask.id === subtaskId
-                  ? { ...subtask, completed: !subtask.completed }
-                  : subtask
-              ),
+              ...task
             }
           : task
       ),
@@ -164,12 +132,7 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
     if (selectedTask?.id === taskId) {
       set({
         selectedTask: {
-          ...selectedTask,
-          subtasks: selectedTask.subtasks?.map((subtask) =>
-            subtask.id === subtaskId
-              ? { ...subtask, completed: !subtask.completed }
-              : subtask
-          ),
+          ...selectedTask
         },
       });
     }
