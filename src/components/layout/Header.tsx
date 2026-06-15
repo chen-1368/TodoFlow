@@ -1,6 +1,7 @@
-import { Search, Bell, Moon, Sun } from 'lucide-react';
-import { useState } from 'react';
-import { useTaskStore } from '../../store/tasks';
+import { Search, Moon, Sun } from "lucide-react";
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useTaskStore } from "../../store/tasks";
 
 interface HeaderProps {
   title: string;
@@ -8,12 +9,20 @@ interface HeaderProps {
 }
 
 export function Header({ title, onSearch }: HeaderProps) {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
   const isDarkMode = useTaskStore((state) => state.isDarkMode);
   const toggleDarkMode = useTaskStore((state) => state.toggleDarkMode);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // 如果不在任务列表页面，先跳转到任务列表
+    if (location.pathname !== "/tasks") {
+      navigate("/tasks");
+    }
+
     onSearch(searchValue);
   };
 
@@ -23,11 +32,11 @@ export function Header({ title, onSearch }: HeaderProps) {
         <div>
           <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
           <p className="text-sm text-gray-500">
-            {new Date().toLocaleDateString('zh-CN', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              weekday: 'long',
+            {new Date().toLocaleDateString("zh-CN", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              weekday: "long",
             })}
           </p>
         </div>
@@ -44,16 +53,15 @@ export function Header({ title, onSearch }: HeaderProps) {
             />
           </form>
 
-          <button className="p-2 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors relative">
-            <Bell className="w-5 h-5" />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
-          </button>
-
           <button
             onClick={toggleDarkMode}
             className="p-2 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
           >
-            {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            {isDarkMode ? (
+              <Sun className="w-5 h-5" />
+            ) : (
+              <Moon className="w-5 h-5" />
+            )}
           </button>
         </div>
       </div>

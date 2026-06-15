@@ -1,17 +1,31 @@
-import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Layout } from './components/layout/Layout';
-import { Dashboard } from './pages/Dashboard';
-import { TaskListPage } from './pages/TaskListPage';
-import { CompletedPage } from './pages/CompletedPage';
-import { TaskForm } from './components/tasks/TaskForm';
-import { TaskDetail } from './components/tasks/TaskDetail';
-import { useTaskStore } from './store/tasks';
-import type { Task } from './types';
+import { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import { Layout } from "./components/layout/Layout";
+import { Dashboard } from "./pages/Dashboard";
+import { TaskListPage } from "./pages/TaskListPage";
+import { CompletedPage } from "./pages/CompletedPage";
+import { TaskForm } from "./components/tasks/TaskForm";
+import { TaskDetail } from "./components/tasks/TaskDetail";
+import { useTaskStore } from "./store/tasks";
+import type { Task } from "./types";
 
 function AppContent() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const location = useLocation();
+
+  const pageTitles: Record<string, string> = {
+    "/": "仪表盘",
+    "/tasks": "任务列表",
+    "/completed": "已完成",
+  };
+
+  const currentTitle = pageTitles[location.pathname] || "仪表盘";
 
   const tasks = useTaskStore((state) => state.tasks);
   const selectedTask = useTaskStore((state) => state.selectedTask);
@@ -32,7 +46,9 @@ function AppContent() {
     setIsFormOpen(true);
   };
 
-  const handleSubmitTask = (data: Omit<Task, 'id' | 'created_at' | 'updated_at'>) => {
+  const handleSubmitTask = (
+    data: Omit<Task, "id" | "created_at" | "updated_at">,
+  ) => {
     if (editingTask) {
       updateTask(editingTask.id, data);
     } else {
@@ -50,13 +66,13 @@ function AppContent() {
   const handleTaskComplete = (taskId: string) => {
     const task = tasks.find((t) => t.id === taskId);
     if (task) {
-      const newStatus = task.status === 'completed' ? 'pending' : 'completed';
+      const newStatus = task.status === "completed" ? "pending" : "completed";
       updateTask(taskId, { status: newStatus });
     }
   };
 
   const handleTaskDelete = (taskId: string) => {
-    if (confirm('确定要删除这个任务吗？')) {
+    if (confirm("确定要删除这个任务吗？")) {
       deleteTask(taskId);
     }
   };
@@ -67,7 +83,7 @@ function AppContent() {
 
   return (
     <Layout
-      title="仪表盘"
+      title={currentTitle}
       onCreateTask={handleCreateTask}
       onSearch={handleSearch}
     >
