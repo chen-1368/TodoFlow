@@ -82,111 +82,117 @@ export function TaskDetail({
   };
 
   return (
-    <div className="fixed inset-y-0 right-0 w-[480px] bg-white border-l border-gray-200 shadow-xl z-40 flex flex-col animate-slide-in">
-      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-        <h2 className="text-lg font-semibold text-gray-900">任务详情</h2>
-        <button
-          onClick={onClose}
-          className="text-gray-400 hover:text-gray-600 transition-colors"
-        >
-          ✕
-        </button>
-      </div>
-
-      <div className="flex-1 overflow-y-auto p-6 space-y-6">
-        <div className="flex items-start gap-3">
+    <div className="fixed inset-0 z-40">
+      <div
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="absolute right-0 top-0 bottom-0 w-[480px] bg-white border-l border-gray-200 shadow-xl flex flex-col animate-slide-in">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+          <h2 className="text-lg font-semibold text-gray-900">任务详情</h2>
           <button
-            onClick={() => onComplete(task.id)}
-            className="mt-0.5 flex-shrink-0"
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600 transition-colors"
           >
-            {task.status === "completed" ? (
-              <CheckCircle className="w-6 h-6 text-accent-500" />
-            ) : (
-              <Circle className="w-6 h-6 text-gray-300 hover:text-accent-500 transition-colors" />
-            )}
+            ✕
           </button>
+        </div>
 
-          <div className="flex-1">
-            <h3
-              className={`text-xl font-semibold ${task.status === "completed" ? "line-through text-gray-400" : "text-gray-900"}`}
+        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+          <div className="flex items-start gap-3">
+            <button
+              onClick={() => onComplete(task.id)}
+              className="mt-0.5 flex-shrink-0"
             >
-              {task.title}
-            </h3>
+              {task.status === "completed" ? (
+                <CheckCircle className="w-6 h-6 text-accent-500" />
+              ) : (
+                <Circle className="w-6 h-6 text-gray-300 hover:text-accent-500 transition-colors" />
+              )}
+            </button>
 
-            <div className="flex items-center gap-2 mt-2 flex-wrap">
-              <span
-                className={`px-2.5 py-1 rounded-full text-xs font-medium ${priorityStyles[task.priority as Priority]}`}
+            <div className="flex-1">
+              <h3
+                className={`text-xl font-semibold ${task.status === "completed" ? "line-through text-gray-400" : "text-gray-900"}`}
               >
-                {priorityLabels[task.priority as Priority]}
-              </span>
-              <span
-                className={`px-2.5 py-1 rounded-full text-xs font-medium ${statusStyles[task.status as TaskStatus]}`}
-              >
-                {statusLabels[task.status as TaskStatus]}
-              </span>
+                {task.title}
+              </h3>
+
+              <div className="flex items-center gap-2 mt-2 flex-wrap">
+                <span
+                  className={`px-2.5 py-1 rounded-full text-xs font-medium ${priorityStyles[task.priority as Priority]}`}
+                >
+                  {priorityLabels[task.priority as Priority]}
+                </span>
+                <span
+                  className={`px-2.5 py-1 rounded-full text-xs font-medium ${statusStyles[task.status as TaskStatus]}`}
+                >
+                  {statusLabels[task.status as TaskStatus]}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {task.description && (
+            <div>
+              <h4 className="text-sm font-medium text-gray-700 mb-2">描述</h4>
+              <p className="text-sm text-gray-600">{task.description}</p>
+            </div>
+          )}
+
+          <div className="flex items-center gap-2">
+            <Calendar className="w-4 h-4 text-gray-400" />
+            <span className="text-sm text-gray-600">
+              截止日期: {formatDate(task.due_date)}
+            </span>
+          </div>
+
+          {task.comments && task.comments.length > 0 && (
+            <div>
+              <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-1">
+                <MessageSquare className="w-4 h-4" />
+                备注 ({task.comments.length})
+              </h4>
+              <div className="space-y-3">
+                {task.comments.map((comment) => (
+                  <div key={comment.id} className="bg-gray-50 rounded-lg p-3">
+                    <p className="text-sm text-gray-700">{comment.content}</p>
+                    <p className="text-xs text-gray-400 mt-1">
+                      {new Date(comment.created_at).toLocaleString("zh-CN")}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="border-t border-gray-200 pt-4">
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                placeholder="添加备注..."
+                onKeyDown={(e) => e.key === "Enter" && handleAddComment()}
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+              />
+              <Button size="sm" onClick={handleAddComment}>
+                <Plus className="w-4 h-4" />
+              </Button>
             </div>
           </div>
         </div>
 
-        {task.description && (
-          <div>
-            <h4 className="text-sm font-medium text-gray-700 mb-2">描述</h4>
-            <p className="text-sm text-gray-600">{task.description}</p>
-          </div>
-        )}
-
-        <div className="flex items-center gap-2">
-          <Calendar className="w-4 h-4 text-gray-400" />
-          <span className="text-sm text-gray-600">
-            截止日期: {formatDate(task.due_date)}
-          </span>
+        <div className="px-6 py-4 border-t border-gray-200 flex gap-3">
+          <Button variant="outline" onClick={onEdit}>
+            <Edit3 className="w-4 h-4 mr-1" />
+            编辑
+          </Button>
+          <Button variant="danger" onClick={() => onDelete(task.id)}>
+            <Trash2 className="w-4 h-4 mr-1" />
+            删除
+          </Button>
         </div>
-
-        {task.comments && task.comments.length > 0 && (
-          <div>
-            <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-1">
-              <MessageSquare className="w-4 h-4" />
-              备注 ({task.comments.length})
-            </h4>
-            <div className="space-y-3">
-              {task.comments.map((comment) => (
-                <div key={comment.id} className="bg-gray-50 rounded-lg p-3">
-                  <p className="text-sm text-gray-700">{comment.content}</p>
-                  <p className="text-xs text-gray-400 mt-1">
-                    {new Date(comment.created_at).toLocaleString("zh-CN")}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div className="border-t border-gray-200 pt-4">
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              placeholder="添加备注..."
-              onKeyDown={(e) => e.key === "Enter" && handleAddComment()}
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
-            />
-            <Button size="sm" onClick={handleAddComment}>
-              <Plus className="w-4 h-4" />
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      <div className="px-6 py-4 border-t border-gray-200 flex gap-3">
-        <Button variant="outline" onClick={onEdit}>
-          <Edit3 className="w-4 h-4 mr-1" />
-          编辑
-        </Button>
-        <Button variant="danger" onClick={() => onDelete(task.id)}>
-          <Trash2 className="w-4 h-4 mr-1" />
-          删除
-        </Button>
       </div>
     </div>
   );
