@@ -21,7 +21,7 @@ export function Sidebar({ onCreateTask }: SidebarProps) {
     <aside className="w-64 bg-white border-r border-gray-200 flex flex-col h-screen fixed left-0 top-0">
       <div className="p-6">
         <h1 className="text-xl font-bold text-primary-600 flex items-center gap-2">
-          <ListTodo className="w-6 h-6" />
+          <img src="/logo.svg" alt="Logo" className="w-6 h-6" />
           TodoFlow
         </h1>
       </div>
