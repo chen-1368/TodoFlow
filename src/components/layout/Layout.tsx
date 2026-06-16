@@ -3,7 +3,7 @@ import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
 import { useTaskStore } from "../../store/tasks";
 
-const MOBILE_BREAKPOINT = 900;
+const MOBILE_BREAKPOINT = 800;
 
 interface LayoutProps {
   children: ReactNode;
