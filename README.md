@@ -1,54 +1,72 @@
-# React + TypeScript + Vite
+# TodoFlow - 待办事项管理应用
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TodoFlow 是一款基于 React 构建的现代待办事项管理应用，支持任务创建、编辑、删除、筛选及暗黑模式切换等功能。
 
-Currently, two official plugins are available:
+## 功能特性
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **仪表盘概览**：展示任务统计、进度及高优先级任务完成情况
+- **任务管理**：创建、编辑、删除任务，支持标题、描述、截止日期、优先级和状态设置
+- **任务筛选**：按状态（待处理/进行中/已完成）和优先级（高/中/低）筛选，支持关键词搜索
+- **已完成页面**：集中查看所有已完成任务
+- **暗黑模式**：支持亮色/暗色主题切换，偏好设置自动保存
+- **数据持久化**：任务数据通过 `localStorage` 自动保存，刷新页面不丢失
+- **响应式布局**：适配桌面端与移动端，移动端支持侧边栏手势操作
 
-## Expanding the ESLint configuration
+## 技术栈
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React 19** - UI 框架
+- **TypeScript** - 类型安全
+- **Vite** - 构建工具
+- **Zustand** - 状态管理
+- **React Router** - 路由管理
+- **Tailwind CSS** - 样式方案
+- **Lucide React** - 图标库
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 项目结构
+
+```
+src/
+├── components/
+│   ├── dashboard/      # 仪表盘相关组件
+│   ├── layout/         # 布局组件（头部、侧边栏、整体布局）
+│   ├── tasks/          # 任务相关组件（卡片、详情、表单）
+│   └── ui/             # 通用 UI 组件（按钮、输入框、选择框等）
+├── pages/              # 页面组件（仪表盘、任务列表、已完成）
+├── store/              # Zustand 状态管理
+├── types/              # TypeScript 类型定义
+├── App.tsx             # 应用入口
+├── main.tsx            # 渲染入口
+└── index.css           # 全局样式
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 快速开始
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 安装依赖
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
+```
+
+### 启动开发服务器
+
+```bash
+npm run dev
+```
+
+### 构建生产版本
+
+```bash
+npm run build
+```
+
+### 预览生产版本
+
+```bash
+npm run preview
+```
+
+### 代码检查
+
+```bash
+npm run lint
 ```
