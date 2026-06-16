@@ -1,8 +1,8 @@
-import { useMemo } from 'react';
-import { TaskCard } from '../components/tasks/TaskCard';
-import { useTaskStore } from '../store/tasks';
-import { Select } from '../components/ui/Select';
-import type { Priority } from '../types';
+import { useMemo } from "react";
+import { TaskCard } from "../components/tasks/TaskCard";
+import { useTaskStore } from "../store/tasks";
+import { Select } from "../components/ui/Select";
+import type { Priority } from "../types";
 
 interface TaskListPageProps {
   onTaskClick: (taskId: string) => void;
@@ -10,7 +10,11 @@ interface TaskListPageProps {
   onTaskDelete: (taskId: string) => void;
 }
 
-export function TaskListPage({ onTaskClick, onTaskComplete, onTaskDelete }: TaskListPageProps) {
+export function TaskListPage({
+  onTaskClick,
+  onTaskComplete,
+  onTaskDelete,
+}: TaskListPageProps) {
   const tasks = useTaskStore((state) => state.tasks);
   const filters = useTaskStore((state) => state.filters);
   const setFilters = useTaskStore((state) => state.setFilters);
@@ -31,7 +35,7 @@ export function TaskListPage({ onTaskClick, onTaskComplete, onTaskDelete }: Task
       result = result.filter(
         (task) =>
           task.title.toLowerCase().includes(searchLower) ||
-          task.description?.toLowerCase().includes(searchLower)
+          task.description?.toLowerCase().includes(searchLower),
       );
     }
 
@@ -39,9 +43,9 @@ export function TaskListPage({ onTaskClick, onTaskComplete, onTaskDelete }: Task
   }, [tasks, filters]);
 
   const statusCounts = {
-    pending: tasks.filter((t) => t.status === 'pending').length,
-    'in-progress': tasks.filter((t) => t.status === 'in-progress').length,
-    completed: tasks.filter((t) => t.status === 'completed').length,
+    pending: tasks.filter((t) => t.status === "pending").length,
+    "in-progress": tasks.filter((t) => t.status === "in-progress").length,
+    completed: tasks.filter((t) => t.status === "completed").length,
   };
 
   return (
@@ -52,38 +56,38 @@ export function TaskListPage({ onTaskClick, onTaskComplete, onTaskDelete }: Task
             onClick={() => setFilters({ ...filters, status: undefined })}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               !filters.status
-                ? 'bg-primary-600 text-white'
-                : 'bg-white border border-gray-300 text-gray-600 hover:bg-gray-50'
+                ? "bg-primary-600 border border-transparent text-white"
+                : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50"
             }`}
           >
             全部 ({tasks.length})
           </button>
           <button
-            onClick={() => setFilters({ ...filters, status: 'pending' })}
+            onClick={() => setFilters({ ...filters, status: "pending" })}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              filters.status === 'pending'
-                ? 'bg-yellow-100 text-yellow-700'
-                : 'bg-white border border-gray-300 text-gray-600 hover:bg-gray-50'
+              filters.status === "pending"
+                ? "bg-yellow-100 border border-transparent text-yellow-700"
+                : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50"
             }`}
           >
             待处理 ({statusCounts.pending})
           </button>
           <button
-            onClick={() => setFilters({ ...filters, status: 'in-progress' })}
+            onClick={() => setFilters({ ...filters, status: "in-progress" })}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              filters.status === 'in-progress'
-                ? 'bg-blue-100 text-blue-700'
-                : 'bg-white border border-gray-300 text-gray-600 hover:bg-gray-50'
+              filters.status === "in-progress"
+                ? "bg-blue-100 border border-transparent text-blue-700"
+                : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50"
             }`}
           >
-            进行中 ({statusCounts['in-progress']})
+            进行中 ({statusCounts["in-progress"]})
           </button>
           <button
-            onClick={() => setFilters({ ...filters, status: 'completed' })}
+            onClick={() => setFilters({ ...filters, status: "completed" })}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              filters.status === 'completed'
-                ? 'bg-green-100 text-green-700'
-                : 'bg-white border border-gray-300 text-gray-600 hover:bg-gray-50'
+              filters.status === "completed"
+                ? "bg-green-100 border border-transparent text-green-700"
+                : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50"
             }`}
           >
             已完成 ({statusCounts.completed})
@@ -92,15 +96,18 @@ export function TaskListPage({ onTaskClick, onTaskComplete, onTaskDelete }: Task
 
         <div className="flex items-center gap-3">
           <Select
-            value={filters.priority || ''}
+            value={filters.priority || ""}
             onChange={(value) =>
-              setFilters({ ...filters, priority: (value as Priority) || undefined })
+              setFilters({
+                ...filters,
+                priority: (value as Priority) || undefined,
+              })
             }
             options={[
-              { value: '', label: '所有优先级' },
-              { value: 'high', label: '高优先级' },
-              { value: 'medium', label: '中优先级' },
-              { value: 'low', label: '低优先级' },
+              { value: "", label: "所有优先级" },
+              { value: "high", label: "高优先级" },
+              { value: "medium", label: "中优先级" },
+              { value: "low", label: "低优先级" },
             ]}
             placeholder="优先级"
           />
@@ -113,8 +120,10 @@ export function TaskListPage({ onTaskClick, onTaskComplete, onTaskDelete }: Task
             <span className="text-3xl">📋</span>
           </div>
           <h3 className="text-lg font-medium text-gray-900 mb-2">暂无任务</h3>
-          <p className="text-gray-500">
-            {filters.search ? '没有找到匹配的任务' : '点击左侧按钮创建第一个任务'}
+          <p className="text-gray-500 text-sm">
+            {filters.search
+              ? "没有找到匹配的任务"
+              : "点击左侧按钮创建第一个任务"}
           </p>
         </div>
       ) : (

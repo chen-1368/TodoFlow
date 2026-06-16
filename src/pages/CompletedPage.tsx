@@ -29,7 +29,7 @@ export function CompletedPage({
           <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-3xl">📋</span>
           </div>
-          <p className="text-gray-500">暂无已完成任务</p>
+          <p className="text-gray-500 text-sm">暂无已完成任务</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
