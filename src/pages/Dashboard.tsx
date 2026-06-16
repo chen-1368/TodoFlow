@@ -25,6 +25,17 @@ export function Dashboard({
 
   const recentTasks = tasks.slice(0, 5);
 
+  const totalHighPriorityTasks = tasks.filter(
+    (t) => t.priority === "high",
+  ).length;
+  const completedHighPriorityTasks = tasks.filter(
+    (t) => t.priority === "high" && t.status === "completed",
+  ).length;
+  const highPriorityProgress =
+    totalHighPriorityTasks > 0
+      ? Math.round((completedHighPriorityTasks / totalHighPriorityTasks) * 100)
+      : 0;
+
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -165,14 +176,18 @@ export function Dashboard({
               <div className="flex items-center gap-2">
                 <div className="flex-1 h-1.5 bg-white rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-primary-500 rounded-full"
-                    style={{ width: "65%" }}
+                    className="h-full bg-primary-500 rounded-full transition-all duration-500"
+                    style={{ width: `${highPriorityProgress}%` }}
                   />
                 </div>
                 <span className="text-xs font-medium text-primary-600">
-                  65%
+                  {highPriorityProgress}%
                 </span>
               </div>
+              <p className="text-xs text-gray-500 mt-2">
+                已完成 {completedHighPriorityTasks} / {totalHighPriorityTasks}{" "}
+                个高优先级任务
+              </p>
             </div>
           </div>
         </div>
