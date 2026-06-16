@@ -67,15 +67,29 @@ export function Dashboard({
             </a>
           </div>
           <div className="space-y-3">
-            {recentTasks.map((task) => (
-              <TaskCard
-                key={task.id}
-                task={task}
-                onClick={() => onTaskClick(task.id)}
-                onComplete={() => onTaskComplete(task.id)}
-                onDelete={() => onTaskDelete(task.id)}
-              />
-            ))}
+            {recentTasks.length > 0 ? (
+              recentTasks.map((task) => (
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  onClick={() => onTaskClick(task.id)}
+                  onComplete={() => onTaskComplete(task.id)}
+                  onDelete={() => onTaskDelete(task.id)}
+                />
+              ))
+            ) : (
+              <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <ListTodo className="w-8 h-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  暂无任务
+                </h3>
+                <p className="text-sm text-gray-500">
+                  点击左侧开始创建您的第一个任务吧！
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -87,13 +101,18 @@ export function Dashboard({
               <div className="flex items-center justify-between text-sm mb-2">
                 <span className="text-gray-600">已完成</span>
                 <span className="font-medium text-green-600">
-                  {Math.round((stats.completed / stats.total) * 100)}%
+                  {stats.total > 0
+                    ? Math.round((stats.completed / stats.total) * 100)
+                    : 0}
+                  %
                 </span>
               </div>
               <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-green-500 rounded-full transition-all duration-500"
-                  style={{ width: `${(stats.completed / stats.total) * 100}%` }}
+                  style={{
+                    width: `${stats.total > 0 ? (stats.completed / stats.total) * 100 : 0}%`,
+                  }}
                 />
               </div>
             </div>
@@ -102,14 +121,17 @@ export function Dashboard({
               <div className="flex items-center justify-between text-sm mb-2">
                 <span className="text-gray-600">进行中</span>
                 <span className="font-medium text-blue-600">
-                  {Math.round((stats.inProgress / stats.total) * 100)}%
+                  {stats.total > 0
+                    ? Math.round((stats.inProgress / stats.total) * 100)
+                    : 0}
+                  %
                 </span>
               </div>
               <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-blue-500 rounded-full transition-all duration-500"
                   style={{
-                    width: `${(stats.inProgress / stats.total) * 100}%`,
+                    width: `${stats.total > 0 ? (stats.inProgress / stats.total) * 100 : 0}%`,
                   }}
                 />
               </div>
@@ -119,13 +141,18 @@ export function Dashboard({
               <div className="flex items-center justify-between text-sm mb-2">
                 <span className="text-gray-600">待处理</span>
                 <span className="font-medium text-yellow-600">
-                  {Math.round((stats.pending / stats.total) * 100)}%
+                  {stats.total > 0
+                    ? Math.round((stats.pending / stats.total) * 100)
+                    : 0}
+                  %
                 </span>
               </div>
               <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-yellow-500 rounded-full transition-all duration-500"
-                  style={{ width: `${(stats.pending / stats.total) * 100}%` }}
+                  style={{
+                    width: `${stats.total > 0 ? (stats.pending / stats.total) * 100 : 0}%`,
+                  }}
                 />
               </div>
             </div>
