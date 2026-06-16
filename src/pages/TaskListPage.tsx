@@ -51,13 +51,13 @@ export function TaskListPage({
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 mr-4">
           <button
             onClick={() => setFilters({ ...filters, status: undefined })}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               !filters.status
                 ? "bg-primary-600 border border-transparent text-white"
-                : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50"
+                : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700"
             }`}
           >
             全部 ({tasks.length})
@@ -66,8 +66,8 @@ export function TaskListPage({
             onClick={() => setFilters({ ...filters, status: "pending" })}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filters.status === "pending"
-                ? "bg-yellow-100 border border-transparent text-yellow-700"
-                : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50"
+                ? "bg-yellow-100 border border-transparent text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
+                : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700"
             }`}
           >
             待处理 ({statusCounts.pending})
@@ -76,8 +76,8 @@ export function TaskListPage({
             onClick={() => setFilters({ ...filters, status: "in-progress" })}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filters.status === "in-progress"
-                ? "bg-blue-100 border border-transparent text-blue-700"
-                : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50"
+                ? "bg-blue-100 border border-transparent text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700"
             }`}
           >
             进行中 ({statusCounts["in-progress"]})
@@ -86,8 +86,8 @@ export function TaskListPage({
             onClick={() => setFilters({ ...filters, status: "completed" })}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filters.status === "completed"
-                ? "bg-green-100 border border-transparent text-green-700"
-                : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50"
+                ? "bg-green-100 border border-transparent text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700"
             }`}
           >
             已完成 ({statusCounts.completed})
@@ -115,12 +115,12 @@ export function TaskListPage({
       </div>
 
       {filteredTasks.length === 0 ? (
-        <div className="bg-white rounded-xl p-12 text-center border border-gray-200">
-          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-12 text-center border border-gray-200 dark:border-gray-700">
+          <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-3xl">📋</span>
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">暂无任务</h3>
-          <p className="text-gray-500 text-sm">
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">暂无任务</h3>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">
             {filters.search
               ? "没有找到匹配的任务"
               : "点击左侧按钮创建第一个任务"}

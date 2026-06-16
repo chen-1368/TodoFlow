@@ -24,7 +24,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div className="space-y-1.5">
         {label && (
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             {label}
           </label>
         )}
@@ -33,17 +33,17 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             type="button"
             onClick={() => setIsOpen(!isOpen)}
             onBlur={() => setTimeout(() => setIsOpen(false), 150)}
-            className={`w-full px-4 py-2.5 border border-gray-300 rounded-lg bg-white text-left focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 flex items-center justify-between ${error ? 'border-red-500' : ''}`}
+            className={`w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-left focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 flex items-center justify-between ${error ? 'border-red-500' : ''}`}
           >
-            <span className={selectedOption ? 'text-gray-900' : 'text-gray-400'}>
+            <span className={selectedOption ? 'text-gray-900 dark:text-white' : 'text-gray-400 dark:text-gray-500'}>
               {selectedOption?.label || placeholder}
             </span>
             <ChevronDown
-              className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+              className={`w-4 h-4 text-gray-400 dark:text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
             />
           </button>
           {isOpen && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 animate-scale-in">
+            <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg z-50 animate-scale-in">
               {options.map((option) => (
                 <button
                   key={option.value}
@@ -52,8 +52,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                     onChange(option.value);
                     setIsOpen(false);
                   }}
-                  className={`w-full px-4 py-2.5 text-left hover:bg-gray-50 transition-colors ${
-                    value === option.value ? 'bg-primary-50 text-primary-600' : 'text-gray-700'
+                  className={`w-full px-4 py-2.5 text-left hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors ${
+                    value === option.value ? 'bg-primary-50 text-primary-600 dark:bg-primary-900/30 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300'
                   }`}
                 >
                   {option.label}

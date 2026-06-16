@@ -15,15 +15,15 @@ export function TaskCard({
   onDelete,
 }: TaskCardProps) {
   const priorityStyles = {
-    high: "bg-red-100 text-red-600",
-    medium: "bg-yellow-100 text-yellow-700",
-    low: "bg-green-100 text-green-700",
+    high: "bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400",
+    medium: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
+    low: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
   };
 
   const statusStyles = {
-    pending: "bg-gray-100 text-gray-600",
-    "in-progress": "bg-blue-100 text-blue-600",
-    completed: "bg-green-100 text-green-600",
+    pending: "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400",
+    "in-progress": "bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400",
+    completed: "bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400",
   };
 
   const statusLabels = {
@@ -53,7 +53,7 @@ export function TaskCard({
   return (
     <div
       onClick={onClick}
-      className={`bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md transition-all duration-200 cursor-pointer group ${
+      className={`bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-200 cursor-pointer group ${
         task.status === "completed" ? "opacity-60" : ""
       }`}
     >
@@ -68,19 +68,19 @@ export function TaskCard({
           {task.status === "completed" ? (
             <CheckCircle className="w-6 h-6 text-accent-500" />
           ) : (
-            <Circle className="w-6 h-6 text-gray-300 hover:text-accent-500 transition-colors" />
+            <Circle className="w-6 h-6 text-gray-300 dark:text-gray-600 hover:text-accent-500 dark:hover:text-accent-400 transition-colors" />
           )}
         </button>
 
         <div className="flex-1 min-w-0">
           <h3
-            className={`font-medium text-sm ${task.status === "completed" ? "line-through text-gray-400" : "text-gray-900"}`}
+            className={`font-medium text-sm ${task.status === "completed" ? "line-through text-gray-400 dark:text-gray-500" : "text-gray-900 dark:text-gray-100"}`}
           >
             {task.title}
           </h3>
 
           {task.description && (
-            <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">
               {task.description}
             </p>
           )}
@@ -100,7 +100,7 @@ export function TaskCard({
           </div>
 
           {task.due_date && (
-            <div className="flex items-center gap-1 mt-3 text-xs text-gray-500">
+            <div className="flex items-center gap-1 mt-3 text-xs text-gray-500 dark:text-gray-400">
               截止时间：
               <Calendar className="w-3.5 h-3.5" />
               {formatDate(task.due_date)}
@@ -113,7 +113,7 @@ export function TaskCard({
             e.stopPropagation();
             onDelete();
           }}
-          className="flex-shrink-0 px-3 py-1.5 text-sm text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+          className="flex-shrink-0 px-3 py-1.5 text-sm text-red-500 hover:text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:text-red-300 dark:hover:bg-red-900/30 rounded-lg transition-colors"
         >
           删除
         </button>

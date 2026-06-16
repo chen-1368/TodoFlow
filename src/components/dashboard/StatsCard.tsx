@@ -48,11 +48,11 @@ export function StatsCard({
   const currentColor = colorStyles[color];
 
   return (
-    <div className="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-md transition-all duration-200 ">
+    <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-200 ">
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-sm text-gray-500 font-medium">{title}</p>
-          <p className="text-3xl font-bold text-gray-900 mt-1">{value}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">{title}</p>
+          <p className="text-3xl font-bold text-gray-900 dark:text-gray-100 mt-1">{value}</p>
           {trend && trendValue && (
             <p
               className={`text-xs font-medium mt-2 flex items-center gap-1 ${trendStyles[trend]}`}

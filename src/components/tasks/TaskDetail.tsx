@@ -32,15 +32,15 @@ export function TaskDetail({
   const [newComment, setNewComment] = useState("");
 
   const priorityStyles = {
-    high: "bg-red-100 text-red-600",
-    medium: "bg-yellow-100 text-yellow-700",
-    low: "bg-green-100 text-green-700",
+    high: "bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400",
+    medium: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
+    low: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
   };
 
   const statusStyles = {
-    pending: "bg-gray-100 text-gray-600",
-    "in-progress": "bg-blue-100 text-blue-600",
-    completed: "bg-green-100 text-green-600",
+    pending: "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400",
+    "in-progress": "bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400",
+    completed: "bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400",
   };
 
   const statusLabels = {
@@ -87,12 +87,12 @@ export function TaskDetail({
         className="absolute inset-0 bg-black/40 backdrop-blur-sm"
         onClick={onClose}
       />
-      <div className="absolute right-0 top-0 bottom-0 w-[480px] bg-white border-l border-gray-200 shadow-xl flex flex-col animate-slide-in">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">任务详情</h2>
+      <div className="absolute right-0 top-0 bottom-0 w-[480px] bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 shadow-xl flex flex-col animate-slide-in">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">任务详情</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
           >
             ✕
           </button>
@@ -107,13 +107,13 @@ export function TaskDetail({
               {task.status === "completed" ? (
                 <CheckCircle className="w-6 h-6 text-accent-500" />
               ) : (
-                <Circle className="w-6 h-6 text-gray-300 hover:text-accent-500 transition-colors" />
+                <Circle className="w-6 h-6 text-gray-300 dark:text-gray-600 hover:text-accent-500 dark:hover:text-accent-400 transition-colors" />
               )}
             </button>
 
             <div className="flex-1">
               <h3
-                className={`text-xl font-semibold ${task.status === "completed" ? "line-through text-gray-400" : "text-gray-900"}`}
+                className={`text-xl font-semibold ${task.status === "completed" ? "line-through text-gray-400 dark:text-gray-500" : "text-gray-900 dark:text-gray-100"}`}
               >
                 {task.title}
               </h3>
@@ -135,29 +135,29 @@ export function TaskDetail({
 
           {task.description && (
             <div>
-              <h4 className="text-sm font-medium text-gray-700 mb-2">描述</h4>
-              <p className="text-sm text-gray-600">{task.description}</p>
+              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">描述</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">{task.description}</p>
             </div>
           )}
 
           <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-gray-400" />
-            <span className="text-sm text-gray-600">
+            <Calendar className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+            <span className="text-sm text-gray-600 dark:text-gray-400">
               截止日期: {formatDate(task.due_date)}
             </span>
           </div>
 
           {task.comments && task.comments.length > 0 && (
             <div>
-              <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-1">
+              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-1">
                 <MessageSquare className="w-4 h-4" />
                 备注 ({task.comments.length})
               </h4>
               <div className="space-y-3">
                 {task.comments.map((comment) => (
-                  <div key={comment.id} className="bg-gray-50 rounded-lg p-3">
-                    <p className="text-sm text-gray-700">{comment.content}</p>
-                    <p className="text-xs text-gray-400 mt-1">
+                  <div key={comment.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
+                    <p className="text-sm text-gray-700 dark:text-gray-300">{comment.content}</p>
+                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
                       {new Date(comment.created_at).toLocaleString("zh-CN")}
                     </p>
                   </div>
@@ -166,7 +166,7 @@ export function TaskDetail({
             </div>
           )}
 
-          <div className="border-t border-gray-200 pt-4">
+          <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -174,7 +174,7 @@ export function TaskDetail({
                 onChange={(e) => setNewComment(e.target.value)}
                 placeholder="添加备注..."
                 onKeyDown={(e) => e.key === "Enter" && handleAddComment()}
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
               />
               <Button size="sm" onClick={handleAddComment}>
                 <Plus className="w-4 h-4" />
@@ -183,7 +183,7 @@ export function TaskDetail({
           </div>
         </div>
 
-        <div className="px-6 py-4 border-t border-gray-200 flex gap-3">
+        <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex gap-3">
           <Button variant="outline" onClick={onEdit}>
             <Edit3 className="w-4 h-4 mr-1" />
             编辑

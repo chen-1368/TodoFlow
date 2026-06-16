@@ -69,10 +69,10 @@ export function Dashboard({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">最近任务</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">最近任务</h2>
             <a
               href="/tasks"
-              className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+              className="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
             >
               查看全部 →
             </a>
@@ -89,14 +89,14 @@ export function Dashboard({
                 />
               ))
             ) : (
-              <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <ListTodo className="w-8 h-8 text-gray-400" />
+              <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-12 text-center">
+                <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <ListTodo className="w-8 h-8 text-gray-400 dark:text-gray-500" />
                 </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
                   暂无任务
                 </h3>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-500 dark:text-gray-400">
                   点击左侧开始创建您的第一个任务吧！
                 </p>
               </div>
@@ -104,13 +104,13 @@ export function Dashboard({
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-5 border border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">任务进度</h2>
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">任务进度</h2>
 
           <div className="space-y-4">
             <div>
               <div className="flex items-center justify-between text-sm mb-2">
-                <span className="text-gray-600">已完成</span>
+                <span className="text-gray-600 dark:text-gray-400">已完成</span>
                 <span className="font-medium text-green-600">
                   {stats.total > 0
                     ? Math.round((stats.completed / stats.total) * 100)
@@ -118,7 +118,7 @@ export function Dashboard({
                   %
                 </span>
               </div>
-              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-green-500 rounded-full transition-all duration-500"
                   style={{
@@ -130,7 +130,7 @@ export function Dashboard({
 
             <div>
               <div className="flex items-center justify-between text-sm mb-2">
-                <span className="text-gray-600">进行中</span>
+                <span className="text-gray-600 dark:text-gray-400">进行中</span>
                 <span className="font-medium text-blue-600">
                   {stats.total > 0
                     ? Math.round((stats.inProgress / stats.total) * 100)
@@ -138,7 +138,7 @@ export function Dashboard({
                   %
                 </span>
               </div>
-              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-blue-500 rounded-full transition-all duration-500"
                   style={{
@@ -150,7 +150,7 @@ export function Dashboard({
 
             <div>
               <div className="flex items-center justify-between text-sm mb-2">
-                <span className="text-gray-600">待处理</span>
+                <span className="text-gray-600 dark:text-gray-400">待处理</span>
                 <span className="font-medium text-yellow-600">
                   {stats.total > 0
                     ? Math.round((stats.pending / stats.total) * 100)
@@ -158,7 +158,7 @@ export function Dashboard({
                   %
                 </span>
               </div>
-              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-yellow-500 rounded-full transition-all duration-500"
                   style={{
@@ -169,12 +169,12 @@ export function Dashboard({
             </div>
           </div>
 
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <h3 className="text-sm font-medium text-gray-700 mb-3">本周目标</h3>
-            <div className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-xl p-4">
-              <p className="text-sm text-gray-600 mb-2">完成所有高优先级任务</p>
+          <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">本周目标</h3>
+            <div className="bg-gradient-to-br from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-xl p-4">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">完成所有高优先级任务</p>
               <div className="flex items-center gap-2">
-                <div className="flex-1 h-1.5 bg-white rounded-full overflow-hidden">
+                <div className="flex-1 h-1.5 bg-white dark:bg-gray-700 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-primary-500 rounded-full transition-all duration-500"
                     style={{ width: `${highPriorityProgress}%` }}
@@ -184,7 +184,7 @@ export function Dashboard({
                   {highPriorityProgress}%
                 </span>
               </div>
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                 已完成 {completedHighPriorityTasks} / {totalHighPriorityTasks}{" "}
                 个高优先级任务
               </p>

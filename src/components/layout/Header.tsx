@@ -27,11 +27,11 @@ export function Header({ title, onSearch }: HeaderProps) {
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 px-6 py-4">
+    <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-200">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
-          <p className="text-sm text-gray-500">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{title}</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             {new Date().toLocaleDateString("zh-CN", {
               year: "numeric",
               month: "long",
@@ -49,13 +49,13 @@ export function Header({ title, onSearch }: HeaderProps) {
               placeholder="搜索任务..."
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
-              className="w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+              className="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
             />
           </form>
 
           <button
             onClick={toggleDarkMode}
-            className="p-2 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700 transition-colors"
           >
             {isDarkMode ? (
               <Sun className="w-5 h-5" />

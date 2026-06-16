@@ -18,9 +18,9 @@ export function Sidebar({ onCreateTask }: SidebarProps) {
   ];
 
   return (
-    <aside className="w-64 bg-white border-r border-gray-200 flex flex-col h-screen fixed left-0 top-0">
+    <aside className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col h-screen fixed left-0 top-0 transition-colors duration-200">
       <div className="p-6">
-        <h1 className="text-xl font-bold text-primary-600 flex items-center gap-2">
+        <h1 className="text-xl font-bold text-primary-600 dark:text-primary-400 flex items-center gap-2">
           <img src="/logo.svg" alt="Logo" className="w-6 h-6" />
           TodoFlow
         </h1>
@@ -42,8 +42,8 @@ export function Sidebar({ onCreateTask }: SidebarProps) {
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                 isActive
-                  ? "bg-primary-50 text-primary-600"
-                  : "text-gray-600 hover:bg-gray-50"
+                  ? "bg-primary-50 text-primary-600 dark:bg-primary-900/30 dark:text-primary-400"
+                  : "text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-700"
               }`
             }
           >
