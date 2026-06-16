@@ -50,7 +50,7 @@ export function TaskListPage({
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex gap-4 items-center flex-wrap">
         <div className="flex items-center gap-4 mr-4">
           <button
             onClick={() => setFilters({ ...filters, status: undefined })}
